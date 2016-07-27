@@ -7,7 +7,7 @@ class MainScheduler:
     @staticmethod
     def startDownload(url, save_url):
         html = crawlHtml(url)
-        content_list = startAnalysis(html)
+        content_list, next_url = startAnalysis(html)
         downContent(content_list, save_url)
-
+        print('next_Url:'+next_url)
         print('success!~~~')
