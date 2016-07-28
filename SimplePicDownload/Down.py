@@ -19,12 +19,11 @@ def downContent(content_list, save_url):
                 success_num += 1
             except UnicodeEncodeError:
                 print('出现错误。放弃写入')
-                # 这是取序号的方法
-                # for index, content in enumerate(content_list):
-                #     number = index + 1
-                #     print(str(number) + "." + content)
+        # 这是取序号的方法
+        # for index, content in enumerate(content_list):
+        #     number = index + 1
+        #     print(str(number) + "." + content)
     print('文件写入完成 %d/%d' % (success_num, len(content_list)))
-
 
 if __name__ == '__main__':
     now = datetime.now().strftime('%F')
