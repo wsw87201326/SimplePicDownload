@@ -1,21 +1,20 @@
 # coding:utf-8
-from urllib import parse
-from SimplePicDownload.Analyzer import startAnalysis
-from SimplePicDownload.Crawl import crawlHtml
-from SimplePicDownload.Down import downContent
+import multiprocessing
+from SimplePicDownload.AnalysisProcess import AnalysisProcess
+
+from SimplePicDownload.DownProcess import DownProcess
 
 
 class MainScheduler:
     @staticmethod
     def startDownload(url, save_url):
-        html = crawlHtml(url)
-        if html is not None:
-            content_list, next_url = startAnalysis(html)
-            downContent(content_list, save_url)
-            if next_url is not '':
-                new_full_url = parse.urljoin(url, next_url)
-                return new_full_url
-            else:
-                return None
-        else:
-            return 'Service_Error'
+        msg_queue = multiprocessing.JoinableQueue()
+        analysis = AnalysisProcess(msg_queue, url)
+        down = DownProcess(save_url, msg_queue)
+
+        analysis.start()
+        down.start()
+
+        analysis.join()
+        down.join()
+        print('今日糗百已经下载完毕.......')
