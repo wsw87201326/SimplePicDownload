@@ -1,3 +1,4 @@
+# coding:utf-8
 from urllib import parse
 from SimplePicDownload.Analyzer import startAnalysis
 from SimplePicDownload.Crawl import crawlHtml
@@ -8,7 +9,7 @@ class MainScheduler:
     @staticmethod
     def startDownload(url, save_url):
         html = crawlHtml(url)
-        if html is not 'Service_Error':
+        if html is not None:
             content_list, next_url = startAnalysis(html)
             downContent(content_list, save_url)
             if next_url is not '':

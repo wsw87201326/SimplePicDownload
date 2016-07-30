@@ -1,3 +1,4 @@
+# coding:utf-8
 from SimplePicDownload.MainScheduler import MainScheduler
 
 if __name__ == '__main__':
@@ -11,7 +12,8 @@ if __name__ == '__main__':
         page += 1
         print(str(page) + "下载完毕")
         if url is 'Service_Error':
-            continue
+            print('遇到错误,被迫停止')
+            break
         elif url is None:
             print('今日糗百已经下载完毕.......')
             break

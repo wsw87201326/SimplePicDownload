@@ -1,3 +1,4 @@
+# coding:utf-8
 from datetime import datetime
 import os
 
@@ -11,19 +12,20 @@ def downContent(content_list, save_url):
     real_save_url = save_url + today_time + '.txt'
     print('正在向||||' + real_save_url + '|||||中写入')
     success_num = 0
-    with open(real_save_url, 'a') as txt_file:
+    with open(real_save_url, 'a', encoding='utf-8') as txt_file:
         for content in content_list:
             content += '\n'
             try:
-                txt_file.write('●  ' + content)
+                txt_file.write('--  ' + content)
                 success_num += 1
             except UnicodeEncodeError:
                 print('出现错误。放弃写入')
-        # 这是取序号的方法
-        # for index, content in enumerate(content_list):
-        #     number = index + 1
-        #     print(str(number) + "." + content)
-    print('文件写入完成 %d/%d' % (success_num, len(content_list)))
+                # 这是取序号的方法
+                # for index, content in enumerate(content_list):
+                #     number = index + 1
+                #     print(str(number) + "." + content)
+    print('文件写入完成 %d/%d , 失败个数: %d' % (success_num, len(content_list), (len(content_list) - success_num)))
+
 
 if __name__ == '__main__':
     now = datetime.now().strftime('%F')
